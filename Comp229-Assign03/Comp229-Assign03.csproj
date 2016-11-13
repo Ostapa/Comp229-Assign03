@@ -155,15 +155,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Icons\add_icon.png" />
-    <Content Include="Assets\Icons\ic_add_circle_white_48dp_1x.png" />
-    <Content Include="Assets\Icons\ic_info_white_48dp_1x.png" />
-    <Content Include="Assets\Icons\info_icon.png" />
+    <Content Include="Assets\Icons\delete_icon.png" />
+    <Content Include="Assets\Icons\edit_icon.png" />
+    <Content Include="Assets\Icons\i_icon.png" />
     <Content Include="Assets\Icons\subrankaIcon.ico" />
     <Content Include="Assets\subrankaLogo.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\HomePage.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="CoursePage.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -202,6 +203,7 @@
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="StudentPage.aspx" />
+    <Content Include="UpdatePage.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -222,6 +224,13 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="CoursePage.aspx.cs">
+      <DependentUpon>CoursePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CoursePage.aspx.designer.cs">
+      <DependentUpon>CoursePage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -255,6 +264,13 @@
     </Compile>
     <Compile Include="StudentPage.aspx.designer.cs">
       <DependentUpon>StudentPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UpdatePage.aspx.cs">
+      <DependentUpon>UpdatePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UpdatePage.aspx.designer.cs">
+      <DependentUpon>UpdatePage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>

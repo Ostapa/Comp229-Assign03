@@ -38,7 +38,7 @@ namespace Comp229_Assign03
             }
             catch (Exception err)
             {
-                Response.Write("Sorry, something went wrong...");
+                Response.Write("Sorry, something went wrong while searching students...");
                 Response.Write(err.Message);
             }
             finally
@@ -47,6 +47,42 @@ namespace Comp229_Assign03
             }
         }
 
-        
+        protected void updateBtn_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("UpdatePage.aspx?StudentID=@StudentID");
+        }
+
+        protected void deleteBtn_Click(object sender, EventArgs e)
+        {
+
+            var studentId = Convert.ToInt32(Request.QueryString["StudentId"]);
+            SqlConnection connection = new SqlConnection("Data Source=DESKTOP-6LRG8C7\\SQLEXPRESS;Initial Catalog=Comp229Assign03;Integrated Security=True");
+            SqlCommand enrollmentCommand = new SqlCommand("DELETE FROM Enrollments WHERE StudentID=@StudentID", connection);
+            SqlCommand studentsCommand = new SqlCommand("DELETE FROM Students WHERE StudentID=@StudentID", connection);
+
+            enrollmentCommand.Parameters.Add(new SqlParameter("@StudentID", System.Data.SqlDbType.Int, 6));
+            studentsCommand.Parameters.Add(new SqlParameter("@StudentID", System.Data.SqlDbType.Int, 6));
+            enrollmentCommand.Parameters["@StudentId"].Value = studentId;
+            studentsCommand.Parameters["@StudentId"].Value = studentId;
+
+            try
+            {
+                connection.Open();
+                enrollmentCommand.ExecuteNonQuery();
+                studentsCommand.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                Response.Redirect("HomePage.aspx");
+            }
+        }
+
     }
 }

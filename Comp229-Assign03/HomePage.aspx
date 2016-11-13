@@ -9,7 +9,7 @@
                 <div class="row">
                     <h1 class="display-3 col-md-6"><span class="align-middle">Subranka College</span></h1>
                     <div class="col-md-5">
-                        <asp:Repeater ID="studentNames" runat="server">   
+                        <asp:Repeater ID="studentNames" runat="server" OnItemCommand="studentNames_ItemCommand">   
                         <HeaderTemplate>
                             <table class="table table-hover">
                                 <thead>
@@ -24,14 +24,14 @@
                                 <tr>
                                     <td><%# Eval("FirstMidName") %></td>
                                     <td><%# Eval("LastName") %></td>
-                                    <%--  <td><asp:ImageButton ID="infoButton" runat="server"
+                                    <td><asp:Label ID="studentId" Visible="false" runat="server" Text='<%# Eval("StudentID") %>' /></td>
+                                    <td><asp:ImageButton ID="infoButton" runat="server"
                                                      AlternateText="Info icon"
-                                                     ImageUrl="~/Assets/Icons/info_icon.png" 
-                                                     OnClick="infoButton_Click"/>
-                                    </td>--%>
+                                                     ImageUrl="~/Assets/Icons/i_icon.png" />
+                                    </td>
                                 </tr>
                             </tbody>
-                        </ItemTemplate>
+                        </ItemTemplate> 
                         <FooterTemplate>
                             </table>
                         </FooterTemplate>                                                 

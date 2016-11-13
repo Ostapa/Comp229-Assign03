@@ -50,5 +50,7 @@
                 </table>
             </FooterTemplate>
         </asp:Repeater>
+        <asp:Button CssClass="btn btn-primary" ID="updateBtn" Text="Update" runat="server" OnClick="updateBtn_Click" />
+        <asp:Button CssClass="btn btn-danger" ID="deleteBtn"  Text="Delete" runat="server" OnClick="deleteBtn_Click" />
     </div>
 </asp:Content>

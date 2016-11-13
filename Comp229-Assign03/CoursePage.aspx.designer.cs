@@ -10,16 +10,7 @@
 namespace Comp229_Assign03 {
     
     
-    public partial class StudentPage {
-        
-        /// <summary>
-        /// studentInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater studentInfo;
+    public partial class CoursePage {
         
         /// <summary>
         /// courses control.
@@ -31,21 +22,30 @@ namespace Comp229_Assign03 {
         protected global::System.Web.UI.WebControls.Repeater courses;
         
         /// <summary>
-        /// updateBtn control.
+        /// enrolledStudents control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button updateBtn;
+        protected global::System.Web.UI.WebControls.Repeater enrolledStudents;
         
         /// <summary>
-        /// deleteBtn control.
+        /// courseId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button deleteBtn;
+        protected global::System.Web.UI.WebControls.TextBox courseId;
+        
+        /// <summary>
+        /// listStudentsBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button listStudentsBtn;
     }
 }

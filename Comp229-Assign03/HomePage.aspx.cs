@@ -9,7 +9,8 @@ using System.Data.SqlClient;
 namespace Comp229_Assign03.Scripts
 {
     public partial class HomePage : System.Web.UI.Page
-    {
+    {   
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -19,7 +20,7 @@ namespace Comp229_Assign03.Scripts
                 SqlDataReader reader;
 
                 SqlConnection connection = new SqlConnection("Data Source=DESKTOP-6LRG8C7\\SQLEXPRESS;Initial Catalog=Comp229Assign03;Integrated Security=True");
-                SqlCommand command = new SqlCommand("SELECT FirstMidName, LastName FROM Students", connection);
+                SqlCommand command = new SqlCommand("SELECT FirstMidName, LastName, StudentID FROM Students", connection);
 
                 try
                 {
@@ -43,9 +44,13 @@ namespace Comp229_Assign03.Scripts
         }
         
         // finish later if there is time
-        //protected void infoButton_Click(object sender, ImageClickEventArgs e)
-        //{
-        //    Response.Redirect("StudentPage.aspx?StudentId=");
-        //}
+       
+        protected void studentNames_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            Label studentId = e.Item.FindControl("studentId") as Label;
+
+            Response.Redirect("StudentPage.aspx?StudentID=" + studentId.Text);
+        }
+
     }
 }
