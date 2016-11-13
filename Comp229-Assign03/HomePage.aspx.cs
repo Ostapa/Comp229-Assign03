@@ -12,32 +12,40 @@ namespace Comp229_Assign03.Scripts
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.Title = "Home Page";
-            SqlDataReader reader;
 
-            SqlConnection connection = new SqlConnection("Data Source=DESKTOP-6LRG8C7\\SQLEXPRESS;Initial Catalog=Comp229Assign03;Integrated Security=True");
-            SqlCommand command = new SqlCommand("SELECT FirstMidName, LastName FROM Students", connection);
-
-            try
+            if (!Page.IsPostBack)
             {
-                connection.Open();
-                reader = command.ExecuteReader();
-                studentNames.DataSource = reader;
-                studentNames.DataBind();
-                connection.Close();
+                Page.Title = "Home Page";
+                SqlDataReader reader;
 
-            }
-            catch (Exception)
-            {
-                // Create an error div under the table or sth like that
-                Response.Write("Sorry, something went wrong...");
-            }
-            finally
-            {
-                connection.Close();
-            }
+                SqlConnection connection = new SqlConnection("Data Source=DESKTOP-6LRG8C7\\SQLEXPRESS;Initial Catalog=Comp229Assign03;Integrated Security=True");
+                SqlCommand command = new SqlCommand("SELECT FirstMidName, LastName FROM Students", connection);
 
+                try
+                {
+                    connection.Open();
+                    reader = command.ExecuteReader();
+                    studentNames.DataSource = reader;
+                    studentNames.DataBind();
+                    connection.Close();
 
+                }
+                catch (Exception)
+                {
+                    // Create an error div under the table or sth like that
+                    Response.Write("Sorry, something went wrong...");
+                }
+                finally
+                {
+                    connection.Close();
+                } 
+            }
         }
+        
+        // finish later if there is time
+        //protected void infoButton_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    Response.Redirect("StudentPage.aspx?StudentId=");
+        //}
     }
 }

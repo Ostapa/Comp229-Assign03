@@ -154,7 +154,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\subrankaIcon.ico" />
+    <Content Include="Assets\Icons\add_icon.png" />
+    <Content Include="Assets\Icons\ic_add_circle_white_48dp_1x.png" />
+    <Content Include="Assets\Icons\ic_info_white_48dp_1x.png" />
+    <Content Include="Assets\Icons\info_icon.png" />
+    <Content Include="Assets\Icons\subrankaIcon.ico" />
     <Content Include="Assets\subrankaLogo.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -197,8 +201,11 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
+    <Content Include="StudentPage.aspx" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Bundle.config" />
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -242,6 +249,13 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="StudentPage.aspx.cs">
+      <DependentUpon>StudentPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentPage.aspx.designer.cs">
+      <DependentUpon>StudentPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
