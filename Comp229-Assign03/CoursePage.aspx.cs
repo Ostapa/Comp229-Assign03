@@ -17,63 +17,23 @@ namespace Comp229_Assign03
             if (!Page.IsPostBack)
             {
                 Page.Title = "Course";
-                SqlDataReader reader;
-                SqlConnection connection = new SqlConnection("Data Source=DESKTOP-6LRG8C7\\SQLEXPRESS;Initial Catalog=Comp229Assign03;Integrated Security=True");
-                SqlCommand command = new SqlCommand("SELECT Courses.CourseID, Title, COUNT(StudentID) as Total " +
+                string command = "SELECT Courses.CourseID, Title, COUNT(StudentID) as Total " +
                                                     "FROM Enrollments " +
                                                     "LEFT OUTER JOIN Courses " +
                                                     "ON Courses.CourseID = Enrollments.CourseID " +
-                                                    "GROUP BY Courses.CourseID, Title", connection);
-
-                try
-                {
-                    connection.Open();
-                    reader = command.ExecuteReader();
-                    courses.DataSource = reader;
-                    courses.DataBind();
-                    connection.Close();
-                }
-                catch (Exception err)
-                {
-                    Response.Write("Sorry, something went wrong...<br>ERROR: " + err.Message);
-
-                }
-                finally
-                {
-                    connection.Close();
-                } 
+                                                    "GROUP BY Courses.CourseID, Title";
+                bindData(command, courses);
             }
-            
         }
 
         protected void listStudentsBtn_Click(object sender, EventArgs e)
         {
-            SqlDataReader reader;
-            SqlConnection connection = new SqlConnection("Data Source=DESKTOP-6LRG8C7\\SQLEXPRESS;Initial Catalog=Comp229Assign03;Integrated Security=True");
-            SqlCommand command = new SqlCommand("SELECT Students.StudentID, FirstMidName, LastName " +
+            string command = "SELECT Students.StudentID, FirstMidName, LastName " +
                                                 "FROM Students " +
                                                 "LEFT OUTER JOIN Enrollments " +
                                                 "ON Students.StudentID = Enrollments.StudentID " +
-                                                "WHERE CourseID = @CourseID ", connection);
-            command.Parameters.Add(new SqlParameter("@CourseID", System.Data.SqlDbType.Int, 4));
-            command.Parameters["@CourseID"].Value = courseId.Text;
-
-            try
-            {
-                connection.Open();
-                reader = command.ExecuteReader();
-                enrolledStudents.DataSource = reader;
-                enrolledStudents.DataBind();
-                connection.Close();
-            }
-            catch (Exception err)
-            {
-                Response.Write("Sorry, something went wrong...<br>ERROR: " + err.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
+                                                "WHERE CourseID = @CourseID ";
+            bindData(command, enrolledStudents);
         }
 
         // when the delete button clicked on a specific student he will be rempved from current course
@@ -82,7 +42,7 @@ namespace Comp229_Assign03
             Label studentId = e.Item.FindControl("StudentId") as Label;
 
             string command = "DELETE FROM Enrollments WHERE CourseID = @CourseID AND StudentID = @StudentID";
-            updateOrDelete(command, studentId.Text);
+            updateOrDelete(command, studentId.Text, courseId.Text);
 
         }
 
@@ -91,19 +51,25 @@ namespace Comp229_Assign03
             Label courseId = e.Item.FindControl("courseIdAdd") as Label;
             TextBox studentId = e.Item.FindControl("studentIdAdd") as TextBox;
 
-            string command = "INSERT INTO Enrollments (CourseID, StudentID, Grade) VALUES(@CourseID, @StudentID, 0)";
-            updateOrDelete(command, studentId.Text);
+            string command = "INSERT INTO Enrollments (CourseID, StudentID, Grade) VALUES (@CourseID, @StudentID, 0)";
+            updateOrDelete(command, studentId.Text, courseId.Text);
 
         }
 
-        protected void updateOrDelete(string comm, string studentId)
+        protected void updateOrDelete(string comm, string studentId, string courseId)
         {
+            
+            int student = 0;
+            int course = 0;
+            Int32.TryParse(studentId, out student);
+            Int32.TryParse(courseId, out course);
+            // int course = Int32.Parse(courseId.Text); don't understand why this or Convert.ToInt32 didn't work
             SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
             SqlCommand command = new SqlCommand(comm, connection);
             command.Parameters.Add(new SqlParameter("@CourseID", System.Data.SqlDbType.Int, 4));
             command.Parameters.Add(new SqlParameter("@StudentID", System.Data.SqlDbType.Int, 6));
-            command.Parameters["@CourseID"].Value = courseId.Text;
-            command.Parameters["@StudentID"].Value = Convert.ToInt32(studentId);
+            command.Parameters["@CourseID"].Value = course;
+            command.Parameters["@StudentID"].Value = student;
 
             try
             {
@@ -112,7 +78,33 @@ namespace Comp229_Assign03
             }
             catch (Exception err)
             {
-                Response.Write("ERROR: " + err.Message);
+                Response.Write("ERROR: " + err.Message + "====" + error.Text);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        protected void bindData(string comm, Repeater repeater)
+        {
+            SqlDataReader reader;
+            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+            SqlCommand command = new SqlCommand(comm, connection);
+            command.Parameters.Add(new SqlParameter("@CourseID", System.Data.SqlDbType.Int, 4));
+            command.Parameters["@CourseID"].Value = courseId.Text;
+
+            try
+            {
+                connection.Open();
+                reader = command.ExecuteReader();
+                repeater.DataSource = reader;
+                repeater.DataBind();
+                connection.Close();
+            }
+            catch (Exception err)
+            {
+                Response.Write("Sorry, something went wrong...<br>ERROR: " + err.Message);
             }
             finally
             {

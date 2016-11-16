@@ -61,5 +61,6 @@
             <asp:TextBox ID="courseId" Placeholder="Enter course ID..." runat="server" />
             <asp:Button ID="listStudentsBtn" Text="List Students" OnClick="listStudentsBtn_Click" runat="server" />
         </div>
+        <asp:Label id="error" runat="server" />
     </div>
 </asp:Content>

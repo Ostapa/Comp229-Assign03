@@ -36,7 +36,6 @@ namespace Comp229_Assign03.Scripts
         protected void addStudent_Click(object sender, EventArgs e)
         {
             string command = "INSERT INTO Students (FirstMidName, LastName, EnrollmentDate) VALUES (@FirstName, @LastName, @EnrollmentDate)";
-
             bindOrInsert(command);
         }
 
@@ -56,6 +55,9 @@ namespace Comp229_Assign03.Scripts
                 }
                 else
                 {
+                    command.Parameters.Add(new SqlParameter("@FirstName", System.Data.SqlDbType.VarChar, 50));
+                    command.Parameters.Add(new SqlParameter("@LastName", System.Data.SqlDbType.VarChar, 50));
+                    command.Parameters.Add(new SqlParameter("@EnrollmentDate", System.Data.SqlDbType.Date));
                     command.Parameters["@FirstName"].Value = txtFirstName.Text;
                     command.Parameters["@LastName"].Value = txtLastName.Text;
                     command.Parameters["@EnrollmentDate"].Value = enrollmentDate.Text;
@@ -67,7 +69,7 @@ namespace Comp229_Assign03.Scripts
             catch (Exception err)
             {
                 // Create an error div under the table or sth like that
-                Response.Write("Sorry, something went wrong...<br>ERROR: " + err.Message);
+                Response.Write("Sorry, something went wrong...<br>ERROR: " + err.Message + "=====" + command.Parameters["@LastName"].Value);
             }
             finally
             {
