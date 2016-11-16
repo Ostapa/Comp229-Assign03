@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
+using System.Web.Configuration;
 
 namespace Comp229_Assign03.Scripts
 {
@@ -17,29 +18,9 @@ namespace Comp229_Assign03.Scripts
             if (!Page.IsPostBack)
             {
                 Page.Title = "Home Page";
-                SqlDataReader reader;
-
-                SqlConnection connection = new SqlConnection("Data Source=DESKTOP-6LRG8C7\\SQLEXPRESS;Initial Catalog=Comp229Assign03;Integrated Security=True");
-                SqlCommand command = new SqlCommand("SELECT FirstMidName, LastName, StudentID FROM Students", connection);
-
-                try
-                {
-                    connection.Open();
-                    reader = command.ExecuteReader();
-                    studentNames.DataSource = reader;
-                    studentNames.DataBind();
-                    connection.Close();
-
-                }
-                catch (Exception)
-                {
-                    // Create an error div under the table or sth like that
-                    Response.Write("Sorry, something went wrong...");
-                }
-                finally
-                {
-                    connection.Close();
-                } 
+                string comm = "SELECT FirstMidName, LastName, StudentID FROM Students";
+                bindOrInsert(comm);
+                
             }
         }
         
@@ -52,5 +33,46 @@ namespace Comp229_Assign03.Scripts
             Response.Redirect("StudentPage.aspx?StudentID=" + studentId.Text);
         }
 
+        protected void addStudent_Click(object sender, EventArgs e)
+        {
+            string command = "INSERT INTO Students (FirstMidName, LastName, EnrollmentDate) VALUES (@FirstName, @LastName, @EnrollmentDate)";
+
+            bindOrInsert(command);
+        }
+
+        protected void bindOrInsert(string comm)
+        {
+            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+            SqlCommand command = new SqlCommand(comm, connection);
+            try
+            {
+                connection.Open();
+                if (comm.Substring(0,6) == "SELECT")
+                {
+                    SqlDataReader reader;
+                    reader = command.ExecuteReader();
+                    studentNames.DataSource = reader;
+                    studentNames.DataBind();
+                }
+                else
+                {
+                    command.Parameters["@FirstName"].Value = txtFirstName.Text;
+                    command.Parameters["@LastName"].Value = txtLastName.Text;
+                    command.Parameters["@EnrollmentDate"].Value = enrollmentDate.Text;
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+
+            }
+            catch (Exception err)
+            {
+                // Create an error div under the table or sth like that
+                Response.Write("Sorry, something went wrong...<br>ERROR: " + err.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }

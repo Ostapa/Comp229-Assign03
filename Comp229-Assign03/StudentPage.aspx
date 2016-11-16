@@ -8,42 +8,33 @@
             </HeaderTemplate>
             <ItemTemplate>
                 <tr>
-                    <td>First Name:</td>
+                    <td>First Name: </td>
                     <td><%# Eval("FirstMidName") %></td>
                 </tr>
                 <tr>
-                    <td>Last Name:</td>
+                    <td>Last Name: </td>
                     <td><%# Eval("LastName") %></td>
                 </tr>
                 <tr>
-                    <td>Student ID:</td>
+                    <td>Student ID: </td>
                     <td><%# Eval("StudentID") %></td>
                 </tr>
                 <tr>
-                    <td>Enrollment Date:</td>
-                    <td><%# Eval("EnrollmentDate") %></td>
-                </tr>  
-            </ItemTemplate>
-            <FooterTemplate>
-                </table>
-            </FooterTemplate>
-        </asp:Repeater>
-        <asp:Repeater ID="courses" runat="server" >
-            <HeaderTemplate>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Courses</th>
-                            <th>Course ID</th>
-                        </tr>
-                    </thead>
-            </HeaderTemplate>
-            <ItemTemplate>
-                <tbody>
-                    <tr>
-                        <td><%# Eval("Title") %></td>
-                        <td><%# Eval("CourseID") %></td>
-                    </tr>
+                    <td>Enrollment Date: </td>
+                    <td><%# Eval("EnDate") %></td>
+                </tr> 
+                <tr>
+                    <td>Course ID: </td>
+                    <td><%# Eval("CourseID") %></td>
+                </tr
+                <tr>
+                    <td>Title</td>
+                    <td><%# Eval("Title") %></td>
+                </tr>
+                </tr>
+                    <td>Grade</td
+                    <td><%# Eval("Grade") %></td>
+                </tr>
                 </tbody>
             </ItemTemplate>
             <FooterTemplate>

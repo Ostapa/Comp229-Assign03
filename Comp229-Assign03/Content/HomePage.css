@@ -7,3 +7,8 @@ a.navbar-brand {
     padding:7px;
 
 }
+
+td {
+    margin:0px;
+    padding:0;
+}

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
+using System.Web.Configuration;
 
 namespace Comp229_Assign03
 {
@@ -77,31 +78,12 @@ namespace Comp229_Assign03
 
         // when the delete button clicked on a specific student he will be rempved from current course
         protected void enrolledStudents_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-
+        { 
             Label studentId = e.Item.FindControl("StudentId") as Label;
 
-            SqlConnection connection = new SqlConnection("Data Source=DESKTOP-6LRG8C7\\SQLEXPRESS;Initial Catalog=Comp229Assign03;Integrated Security=True");
-            SqlCommand command = new SqlCommand("DELETE FROM Enrollments WHERE CourseID = @CourseID AND StudentID = @StudentID", connection);
-            command.Parameters.Add(new SqlParameter("@CourseID", System.Data.SqlDbType.Int, 4));
-            command.Parameters.Add(new SqlParameter("@StudentID", System.Data.SqlDbType.Int, 6));
-            command.Parameters["@CourseID"].Value = courseId.Text;
-            command.Parameters["@StudentID"].Value = studentId.Text;
+            string command = "DELETE FROM Enrollments WHERE CourseID = @CourseID AND StudentID = @StudentID";
+            updateOrDelete(command, studentId.Text);
 
-
-            try
-            {
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (Exception err)
-            {
-                Response.Write("ERROR: " + err.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
         }
 
         protected void courses_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -109,18 +91,24 @@ namespace Comp229_Assign03
             Label courseId = e.Item.FindControl("courseIdAdd") as Label;
             TextBox studentId = e.Item.FindControl("studentIdAdd") as TextBox;
 
-            SqlConnection connection = new SqlConnection("Data Source=DESKTOP-6LRG8C7\\SQLEXPRESS;Initial Catalog=Comp229Assign03;Integrated Security=True");
-            SqlCommand command = new SqlCommand("INSERT INTO Enrollments (CourseID, StudentID, Grade) VALUES(@CourseID, @StudentID, 0)", connection);
+            string command = "INSERT INTO Enrollments (CourseID, StudentID, Grade) VALUES(@CourseID, @StudentID, 0)";
+            updateOrDelete(command, studentId.Text);
+
+        }
+
+        protected void updateOrDelete(string comm, string studentId)
+        {
+            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+            SqlCommand command = new SqlCommand(comm, connection);
             command.Parameters.Add(new SqlParameter("@CourseID", System.Data.SqlDbType.Int, 4));
             command.Parameters.Add(new SqlParameter("@StudentID", System.Data.SqlDbType.Int, 6));
             command.Parameters["@CourseID"].Value = courseId.Text;
-            command.Parameters["@StudentID"].Value = Convert.ToInt32(studentId.Text);
+            command.Parameters["@StudentID"].Value = Convert.ToInt32(studentId);
 
             try
             {
                 connection.Open();
                 command.ExecuteNonQuery();
-
             }
             catch (Exception err)
             {
@@ -130,7 +118,6 @@ namespace Comp229_Assign03
             {
                 connection.Close();
             }
-
         }
     }
 }
