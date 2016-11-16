@@ -36,10 +36,10 @@ namespace Comp229_Assign03
             bindData(command, enrolledStudents);
         }
 
-        // when the delete button clicked on a specific student he will be rempved from current course
+        // when the delete button clicked on a specific student he will be removed from current course
         protected void enrolledStudents_ItemCommand(object source, RepeaterCommandEventArgs e)
         { 
-            Label studentId = e.Item.FindControl("StudentId") as Label;
+            Label studentId = e.Item.FindControl("studentId") as Label; // change to capital if doesn't work
 
             string command = "DELETE FROM Enrollments WHERE CourseID = @CourseID AND StudentID = @StudentID";
             updateOrDelete(command, studentId.Text, courseId.Text);
@@ -90,9 +90,11 @@ namespace Comp229_Assign03
         {
             SqlDataReader reader;
             SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+            int course = 0;
+            Int32.TryParse(courseId.Text, out course);
             SqlCommand command = new SqlCommand(comm, connection);
             command.Parameters.Add(new SqlParameter("@CourseID", System.Data.SqlDbType.Int, 4));
-            command.Parameters["@CourseID"].Value = courseId.Text;
+            command.Parameters["@CourseID"].Value = course;
 
             try
             {

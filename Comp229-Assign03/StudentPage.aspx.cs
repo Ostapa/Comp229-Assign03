@@ -32,11 +32,21 @@ namespace Comp229_Assign03
                       " ON e.CourseID = c.CourseID " +
                       " WHERE e.StudentID = @StudentID";
             selectOrDelete(command, courseInfo);
+
         }
 
         protected void updateBtn_Click(object sender, EventArgs e)
         {
-            Response.Redirect("UpdatePage.aspx?StudentID=@StudentID");
+            Label fName = studentInfo.Items[0].FindControl("fName") as Label;
+            Label lName = studentInfo.Items[0].FindControl("lName") as Label;
+            Label studentId = studentInfo.Items[0].FindControl("studentId") as Label;
+            Label enDate = studentInfo.Items[0].FindControl("enDate") as Label;
+            Application["fName"] = fName.Text;
+            Application["lName"] = lName.Text;
+            Application["studentId"] = studentId.Text;
+            Application["enDate"] = enDate.Text;
+
+            Response.Redirect("UpdatePage.aspx");
         }
 
         protected void deleteBtn_Click(object sender, EventArgs e)
@@ -56,7 +66,6 @@ namespace Comp229_Assign03
             SqlCommand command = new SqlCommand(comm, connection);
             command.Parameters.Add(new SqlParameter("@StudentID", System.Data.SqlDbType.Int, 6));
             command.Parameters["@StudentID"].Value = studentId;
-
             try
             {
                 connection.Open();

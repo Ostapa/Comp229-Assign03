@@ -17,19 +17,19 @@
                     <ItemTemplate>
                         <tr>
                             <td>First Name: </td>
-                            <td><%# Eval("FirstMidName") %></td>
+                            <td><asp:Label ID="fName"  runat="server" Text='<%# Eval("FirstMidName") %>' /></td>
                         </tr>
                         <tr>
                             <td>Last Name: </td>
-                            <td><%# Eval("LastName") %></td>
+                            <td><asp:Label ID="lName" runat="server" Text='<%# Eval("LastName") %>' /></td>
                         </tr>
                         <tr>
                             <td>Student ID: </td>
-                            <td><%# Eval("StudentID") %></td>
+                            <td><asp:Label ID="studentId" runat="server" Text='<%# Eval("StudentID") %> ' /></td>
                         </tr>
                         <tr>
                             <td>Enrollment Date: </td>
-                            <td><%# Eval("EnDate") %></td>
+                            <td><asp:Label ID="enDate" runat="server" Text='<%# Eval("EnDate") %>' /></td>
                         </tr> 
                     </ItemTemplate>
                     <FooterTemplate>
