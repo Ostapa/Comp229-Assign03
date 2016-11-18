@@ -21,6 +21,7 @@ namespace Comp229_Assign03.Scripts
                 string comm = "SELECT FirstMidName, LastName, StudentID FROM Students";
                 bindOrInsert(comm);
                 
+                
             }
         }
         
@@ -37,6 +38,7 @@ namespace Comp229_Assign03.Scripts
         {
             string command = "INSERT INTO Students (FirstMidName, LastName, EnrollmentDate) VALUES (@FirstName, @LastName, @EnrollmentDate)";
             bindOrInsert(command);
+            Response.Redirect(Request.RawUrl);
         }
 
         protected void bindOrInsert(string comm)

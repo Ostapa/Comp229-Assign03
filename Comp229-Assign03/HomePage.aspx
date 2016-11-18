@@ -2,28 +2,71 @@
 
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server" >
-    <div class="container">
-        <div class="jubmbotron-fluid">
+    <div class="container-fluid">
+            <div class="head">
+                <h1 class="display-1"><span class="align-middle">Subranka College</span></h1>
+                <p class="lead ">To Learn is to Change</p>
+            </div>
+        <hr />
             <div class="row">
-                <img class="col-md-6 center" src="Assets/subrankaLogo.png" />
-                <div class="row">
-                    <h1 class="display-3 col-md-6"><span class="align-middle">Subranka College</span></h1>
-                    <div class="col-md-6">
+                <img class="col-md-6" src="Assets/subrankaLogo.png" />
+                <div class="col-md-1 col-sm-1"></div>
+                <%-- Add ReGex here --%>    
+                     <fieldset class="form-group col-md-5 col-sm-5">
+                         <legend class="lead">You can become a student of Subranka:</legend>
+                     <div>
+                     <label for="txtFirstName">*First Name: </label>
+                        <asp:TextBox ID="txtFirstName" runat="server" CssClass="form-control" />
+                        <small><asp:RequiredFieldValidator ID="firstNameReq" runat="server"
+                            ControlToValidate="txtFirstName"
+                            ErrorMessage="This field is required"
+                            ForeColor="Red" 
+                            ValidationGroup="newStudent"
+                            Display="Dynamic"/>
+                        </small>
+                         </div>   
+                        <label for="txtLastName">*Last Name: </label>
+                        <asp:TextBox ID="txtLastName" runat="server" CssClass="form-control" />
+                        <small><asp:RequiredFieldValidator ID="lastNameReq" runat="server"
+                            ControlToValidate="txtLastName"
+                            ErrorMessage="This field is required"
+                            ForeColor="Red" 
+                            ValidationGroup="newStudent" /></small><br />
+                        <label for="enrollmentDate">*Enrollment Date: </label>
+                        <asp:TextBox ID="enrollmentDate" runat="server"
+                            CssClass="form-control en-date" Type="Date" />
+                        <small><asp:RequiredFieldValidator ID="dateReq" runat="server"
+                            ControlToValidate="enrollmentDate"
+                            ErrorMessage="This field is required"
+                            ForeColor="Red" 
+                            ValidationGroup="newStudent" /></small><br />
+                        <asp:Button ID="addStudent" CssClass="btn btn-primary" ValidationGroup="newStudent" OnClick="addStudent_Click" Text="Create Student" runat="server"/> 
+                        &nbsp;<small class="text-muted">Fields marked with * are required</small>
+                         </fieldset>
+            </div>
+            <div class="row">
+                <h1 class="display-2">Here is a list of Subranka College's students: </h1>
+                <p class="lead">You can find more informatoin about the studetn by pressing <img src="Assets/Icons/i_icon.png" alt="Info icon" /></p>
+                <hr />
+            </div>
+            <div class="row">
+                    <!--<div class="col-md-3 offset-md-3"></div>-->
+                    <div class="col-md-12">
                         <asp:Repeater ID="studentNames" runat="server" OnItemCommand="studentNames_ItemCommand">   
                         <HeaderTemplate>
-                            <table class="table table-hover">
+                            <table class="table table-hover table-inverse">
                                 <thead>
                                     <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
+                                        <th class="h2">First Name</th>
+                                        <th class="h2">Last Name</th>
                                     </tr>
                                 </thead>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <tbody>
                                 <tr>
-                                    <td><%# Eval("FirstMidName") %></td>
-                                    <td><%# Eval("LastName") %></td>
+                                    <td class="h4"><%# Eval("FirstMidName") %></td>
+                                    <td class="h4"><%# Eval("LastName") %></td>
                                     <td><asp:Label ID="studentId" Visible="false" runat="server" Text='<%# Eval("StudentID") %>' /></td>
                                     <td><asp:ImageButton ID="infoButton" runat="server"
                                                      AlternateText="Info icon"
@@ -37,34 +80,8 @@
                         </FooterTemplate>                                                 
                     </asp:Repeater>
                     </div>
-                    <div class="form-group">
-                        <label for="txtFirstName">*First Name: </label>
-                        <asp:TextBox ID="txtFirstName" runat="server" CssClass="form-control" />
-                        <asp:RequiredFieldValidator ID="firstNameReq" runat="server"
-                            ControlToValidate="txtFirstName"
-                            ErrorMesssage="This field is required"
-                            ForeColor="Red" 
-                            ValidationGroup="newStudent"/>
-                        <label for="txtLastName">*Last Name: </label>
-                        <asp:TextBox ID="txtLastName" runat="server" CssClass="form-control" />
-                        <asp:RequiredFieldValidator ID="lastNameReq" runat="server"
-                            ControlToValidate="txtLastName"
-                            ErrorMesssage="This field is required"
-                            ForeColor="Red" 
-                            ValidationGroup="newStudent" />
-                        <label for="enrollmentDate">*Enrollment Date: </label>
-                        <asp:TextBox ID="enrollmentDate" runat="server"
-                            CssClass="form-control" Type="Date" />
-                        <asp:RequiredFieldValidator ID="dateReq" runat="server"
-                            ControlToValidate="enrollmentDate"
-                            ErrorMesssage="This field is required"
-                            ForeColor="Red" 
-                            ValidationGroup="newStudent" />
-                        <asp:Button ID="addStudent" CssClass="btn btn-success" ValidationGroup="newStudent" OnClick="addStudent_Click" Text="Create Student" runat="server"/>
-                    </div>
-                </div>
-            </div>            
-        </div>
+                    <div class="col-md-3 offset-md-3"></div>
+            </div>
     </div>
 </asp:Content>
   

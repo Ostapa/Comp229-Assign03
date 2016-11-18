@@ -12,3 +12,29 @@ td {
     margin:0px;
     padding:0;
 }
+
+.form-control.en-date {
+    min-width: 130px;
+    max-width:280px;
+}
+
+.form-control {
+    margin-bottom: 10px;
+}
+
+.form-group {
+    padding: 15px;
+    border: 1px solid #333;
+    border-radius: 15px ;
+}
+
+.form-group legend {
+    width: auto;
+    padding: 8px;
+    border: none;
+}
+
+.lead img {
+    width:25px;
+    height:25px;
+}
