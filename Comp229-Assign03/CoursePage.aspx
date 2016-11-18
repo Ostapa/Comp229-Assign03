@@ -5,7 +5,7 @@
         <div>
             <asp:Repeater ID="courses" runat="server" OnItemCommand="courses_ItemCommand">
                 <HeaderTemplate>
-                    <table class="table table-striped">
+                    <table class="table table-striped table-inverse">
                         <thead>
                             <tr>
                                 <th>Course ID</th>
@@ -21,10 +21,9 @@
                             <td class="text-center"><%# Eval("Title") %></td>
                             <td ><%# Eval("Total") %></td>
                             <td>
-                                <%-- Make student enrollment more user-friendly and dynamic with JavaScript --%>
-                                <asp:TextBox ID="studentIdAdd" runat="server" Placeholder="Enter student ID to enroll" />
-                                <asp:ImageButton ID="enrollStudent" ImageUrl="~/Assets/Icons/add_icon.png" AlternateText="Add Icon" runat="server" />
+                                <asp:TextBox ID="studentIdAdd" CssClass="form-control course" runat="server" Placeholder="Enter student ID to enroll" />
                             </td>
+                            <td><asp:ImageButton ID="enrollStudent" ImageUrl="~/Assets/Icons/plus_icon.png" AlternateText="Add Icon" runat="server" /></td>
                         </tr>
                     </tbody>
                 </ItemTemplate>
@@ -58,8 +57,8 @@
                     </table>
                 </FooterTemplate>
             </asp:Repeater>
-            <asp:TextBox ID="courseId" Placeholder="Enter course ID..." runat="server" />
-            <asp:Button ID="listStudentsBtn" Text="List Students" OnClick="listStudentsBtn_Click" runat="server" />
+            <asp:TextBox ID="courseId" CssClass="form-control" Placeholder="Enter course ID..." runat="server" />
+            <asp:Button ID="listStudentsBtn" Text="List Students" CssClass="btn btn-primary" OnClick="listStudentsBtn_Click" runat="server" />
         </div>
         <asp:Label id="error" runat="server" />
     </div>

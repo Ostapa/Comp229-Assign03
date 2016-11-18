@@ -19,7 +19,7 @@ namespace Comp229_Assign03
                 Page.Title = "Course";
                 string command = "SELECT Courses.CourseID, Title, COUNT(StudentID) as Total " +
                                                     "FROM Enrollments " +
-                                                    "LEFT OUTER JOIN Courses " +
+                                                    "FULL OUTER JOIN Courses " +
                                                     "ON Courses.CourseID = Enrollments.CourseID " +
                                                     "GROUP BY Courses.CourseID, Title";
                 bindData(command, courses);
@@ -43,6 +43,7 @@ namespace Comp229_Assign03
 
             string command = "DELETE FROM Enrollments WHERE CourseID = @CourseID AND StudentID = @StudentID";
             updateOrDelete(command, studentId.Text, courseId.Text);
+            Response.Redirect(Request.RawUrl);
 
         }
 
@@ -53,6 +54,7 @@ namespace Comp229_Assign03
 
             string command = "INSERT INTO Enrollments (CourseID, StudentID, Grade) VALUES (@CourseID, @StudentID, 0)";
             updateOrDelete(command, studentId.Text, courseId.Text);
+            Response.Redirect(Request.RawUrl);
 
         }
 

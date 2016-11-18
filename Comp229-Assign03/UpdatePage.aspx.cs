@@ -14,7 +14,6 @@ namespace Comp229_Assign03
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.Title = "Update";
-            
 
         }
 
