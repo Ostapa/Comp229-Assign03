@@ -53,5 +53,10 @@ namespace Comp229_Assign03
                 connection.Close();
             }
         }
+
+        protected void cancelBtn_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("StudentPage.aspx?StudentID=" + Application["studentId"].ToString());
+        }
     }
 }

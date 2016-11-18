@@ -24,14 +24,40 @@ namespace Comp229_Assign03
                                  " ON Enrollments.CourseID = Courses.CourseID " +
                                  " WHERE Enrollments.StudentId = @StudentID "; */
 
-            string command = "SELECT FirstMidName, LastName, StudentID, SUBSTRING(CAST(EnrollmentDate AS CHAR),1,10) AS EnDate FROM Students WHERE StudentID  = @StudentID ";                 
-            selectOrDelete(command, studentInfo);
-            command = "SELECT c.CourseID, Title, Grade " +
-                      " FROM Courses AS c " +
-                      " LEFT OUTER JOIN Enrollments AS e " +
-                      " ON e.CourseID = c.CourseID " +
-                      " WHERE e.StudentID = @StudentID";
-            selectOrDelete(command, courseInfo);
+            if (!Page.IsPostBack)
+            {
+                // if the user hit the Student tab or goes directly through url, this will provide a form to enter studentID
+                if (string.IsNullOrEmpty(Request.QueryString["StudentID"]))
+                {
+                    studentPanel.Visible = false;
+                    requestPanel.Visible = true;
+                }
+                else
+                {
+                    try { 
+                        requestPanel.Visible = false;
+                        studentPanel.Visible = true;
+                        string command = "SELECT FirstMidName, LastName, StudentID, SUBSTRING(CAST(EnrollmentDate AS CHAR),1,10) AS EnDate FROM Students WHERE StudentID  = @StudentID ";
+                        selectOrDelete(command, studentInfo);
+                        command = "SELECT c.CourseID, Title, Grade " +
+                                  " FROM Courses AS c " +
+                                  " LEFT OUTER JOIN Enrollments AS e " +
+                                  " ON e.CourseID = c.CourseID " +
+                                  " WHERE e.StudentID = @StudentID";
+                        selectOrDelete(command, courseInfo);
+                        // throws error here
+                        // fix it later
+                        Label fName = studentInfo.Items[0].FindControl("fName") as Label;
+                        Label lName = studentInfo.Items[0].FindControl("lName") as Label;
+                        studentName.Text = fName.Text + " " + lName.Text;
+                    }
+                    catch (Exception)
+                    {
+                        error.Text = "Sorry, the student with specified ID doen not exist. Try again.";
+                    }
+                }
+            }
+            
 
         }
 
@@ -62,10 +88,11 @@ namespace Comp229_Assign03
         protected void selectOrDelete(string comm, Repeater repeater)
         {
             var studentId = Convert.ToInt32(Request.QueryString["StudentID"]);
-            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
             SqlCommand command = new SqlCommand(comm, connection);
             command.Parameters.Add(new SqlParameter("@StudentID", System.Data.SqlDbType.Int, 6));
             command.Parameters["@StudentID"].Value = studentId;
+
             try
             {
                 connection.Open();
@@ -86,7 +113,6 @@ namespace Comp229_Assign03
             }
             catch (Exception err)
             {
-                // Create an error div under the table or sth like that
                 Response.Write("Sorry, something went wrong...<br>ERROR: " + err.Message);
             }
             finally
@@ -95,5 +121,9 @@ namespace Comp229_Assign03
             }
         }
 
+        protected void provideStudentInfo_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("StudentPage.aspx?StudentID=" + requestedId.Text);
+        }
     }
 }

@@ -159,6 +159,7 @@
     <Content Include="Assets\Icons\edit_icon.png" />
     <Content Include="Assets\Icons\i_icon.png" />
     <Content Include="Assets\Icons\subrankaIcon.ico" />
+    <Content Include="Assets\profile_image.png" />
     <Content Include="Assets\subrankaLogo.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
