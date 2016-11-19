@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="CoursePage.aspx.cs" Inherits="Comp229_Assign03.CoursePage" %>
 
+<%-- Assignemnt 3 - Comp229-007
+     Author: Ostap Hamarnyk --%>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server" >
     <div class="jumbotron">
         <div>
@@ -17,8 +19,8 @@
                 <ItemTemplate>
                     <tbody>
                         <tr>
-                            <td class="text-center"><asp:Label ID="courseIdAdd" runat="server" Text='<%# Eval("CourseID") %>' /></td>
-                            <td class="text-center"><%# Eval("Title") %></td>
+                            <td class="text-center"><%# Eval("CourseID") %></td>
+                            <td class="text-center"><asp:Label ID="title" runat="server" Text='<%# Eval("Title") %>' /></td>
                             <td ><%# Eval("Total") %></td>
                             <td>
                                 <asp:TextBox ID="studentIdAdd" CssClass="form-control course" runat="server" Placeholder="Enter student ID to enroll" />

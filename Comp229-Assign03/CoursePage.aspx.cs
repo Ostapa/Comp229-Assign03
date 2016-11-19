@@ -9,11 +9,13 @@ using System.Web.Configuration;
 
 namespace Comp229_Assign03
 {
+    // Assignemnt 3 - Comp229-007
+    //Author: Ostap Hamarnyk 
+
     public partial class CoursePage : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.Title = "Course";
             if (!Page.IsPostBack)
             {
                 Page.Title = "Course";
@@ -22,45 +24,44 @@ namespace Comp229_Assign03
                                                     "FULL OUTER JOIN Courses " +
                                                     "ON Courses.CourseID = Enrollments.CourseID " +
                                                     "GROUP BY Courses.CourseID, Title";
-                bindData(command, courses);
+                bindData(command, courses)
             }
         }
-
+    
         protected void listStudentsBtn_Click(object sender, EventArgs e)
         {
-            string command = "SELECT Students.StudentID, FirstMidName, LastName " +
+            string command = "SELECT Students.StudentID, FirstMidName, LastName, Title " +
                                                 "FROM Students " +
                                                 "LEFT OUTER JOIN Enrollments " +
                                                 "ON Students.StudentID = Enrollments.StudentID " +
-                                                "WHERE CourseID = @CourseID ";
+                                                "LEFT OUTER JOIN Courses " + 
+                                                "ON Courses.CourseID = Enrollments.CourseID " +
+                                                "WHERE Courses.CourseID = @CourseID ";
             bindData(command, enrolledStudents);
         }
 
         // when the delete button clicked on a specific student he will be removed from current course
         protected void enrolledStudents_ItemCommand(object source, RepeaterCommandEventArgs e)
         { 
-            Label studentId = e.Item.FindControl("studentId") as Label; // change to capital if doesn't work
-
+            Label studentId = e.Item.FindControl("studentId") as Label; 
             string command = "DELETE FROM Enrollments WHERE CourseID = @CourseID AND StudentID = @StudentID";
             updateOrDelete(command, studentId.Text, courseId.Text);
             Response.Redirect(Request.RawUrl);
-
         }
 
         protected void courses_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             Label courseId = e.Item.FindControl("courseIdAdd") as Label;
+            Label courseTitle = e.Item.FindControl("title") as Label;
+            Application["title"] = courseTitle.Text;
             TextBox studentId = e.Item.FindControl("studentIdAdd") as TextBox;
-
             string command = "INSERT INTO Enrollments (CourseID, StudentID, Grade) VALUES (@CourseID, @StudentID, 0)";
             updateOrDelete(command, studentId.Text, courseId.Text);
             Response.Redirect(Request.RawUrl);
-
         }
 
         protected void updateOrDelete(string comm, string studentId, string courseId)
         {
-            
             int student = 0;
             int course = 0;
             Int32.TryParse(studentId, out student);
@@ -80,7 +81,7 @@ namespace Comp229_Assign03
             }
             catch (Exception err)
             {
-                Response.Write("ERROR: " + err.Message + "====" + error.Text);
+                Response.Write("ERROR: " + err.Message);
             }
             finally
             {

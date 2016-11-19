@@ -9,11 +9,12 @@ using System.Web.Configuration;
 
 namespace Comp229_Assign03
 {
+    // Assignment 3 - Comp229-007
+    // Author: Ostap Hamarnyk
     public partial class UpdatePage : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.Title = "Update";
 
         }
 

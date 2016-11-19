@@ -69,6 +69,30 @@ namespace Comp229_Assign03
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Page.IsPostBack)
+            { 
+                string path = System.Web.HttpContext.Current.Request.Url.AbsolutePath;
+                System.IO.FileInfo fileInfo = new System.IO.FileInfo(path);
+                string pageName = fileInfo.Name;
+                switch (pageName)
+                {
+                    case "HomePage":
+                        Page.Title = "Home";
+                        break;
+                    case "StudentPage":
+                        Page.Title = "Student Info";
+                        break;
+                    case "CoursePage":
+                        Page.Title = "Course";
+                        break;
+                    case "UpdatePage":
+                        Page.Title = "Update Info";
+                        break;
+                    default:
+                        Page.Title = "Sabranka";
+                        break; 
+                }
+            }
 
         }
 

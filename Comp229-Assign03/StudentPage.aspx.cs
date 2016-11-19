@@ -9,13 +9,14 @@ using System.Web.Configuration;
 
 namespace Comp229_Assign03
 {
+     // Assignemnt 3 - Comp229-007
+     // Author: Ostap Hamarnyk 
     public partial class StudentPage : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.Title = "Student";
-            /* couldn't figure out how to print the student credentials once except for courseID, title and grade
-               need to do it with two separate commands
+             // couldn't figure out how to print the student credentials once except for courseID, title and grade
+             /*  need to do it with two separate commands
             string comm = "SELECT Students.StudentID, FirstMidName, LastName, SUBSTRING(CAST(EnrollmentDate AS CHAR),1,10) AS EnDate, Enrollments.CourseID, Title, Grade" +
                                  " FROM Students " +
                                  " LEFT OUTER JOIN Enrollments " +
@@ -57,8 +58,6 @@ namespace Comp229_Assign03
                     }
                 }
             }
-            
-
         }
 
         protected void updateBtn_Click(object sender, EventArgs e)

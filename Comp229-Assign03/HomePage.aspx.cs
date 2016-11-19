@@ -9,6 +9,8 @@ using System.Web.Configuration;
 
 namespace Comp229_Assign03.Scripts
 {
+     // Assignemnt 3 - Comp229-007
+     // Author: Ostap Hamarnyk 
     public partial class HomePage : System.Web.UI.Page
     {   
 
@@ -17,15 +19,10 @@ namespace Comp229_Assign03.Scripts
 
             if (!Page.IsPostBack)
             {
-                Page.Title = "Home Page";
                 string comm = "SELECT FirstMidName, LastName, StudentID FROM Students";
                 bindOrInsert(comm);
-                
-                
             }
         }
-        
-        // finish later if there is time
        
         protected void studentNames_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
@@ -71,7 +68,7 @@ namespace Comp229_Assign03.Scripts
             catch (Exception err)
             {
                 // Create an error div under the table or sth like that
-                Response.Write("Sorry, something went wrong...<br>ERROR: " + err.Message + "=====" + command.Parameters["@LastName"].Value);
+                Response.Write("Sorry, something went wrong...<br>ERROR: " + err.Message);
             }
             finally
             {

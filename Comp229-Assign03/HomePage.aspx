@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="HomePage.aspx.cs" Inherits="Comp229_Assign03.Scripts.HomePage" %>
 
+<%-- Assignemnt 3 - Comp229-007
+     Author: Ostap Hamarnyk --%>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server" >
     <div class="container-fluid">
@@ -10,8 +12,7 @@
         <hr />
             <div class="row">
                 <img class="col-md-6" src="Assets/subrankaLogo.png" />
-                <div class="col-md-1 col-sm-1"></div>
-                <%-- Add ReGex here --%>    
+                <div class="col-md-1 col-sm-1"></div>   
                      <fieldset class="form-group col-md-5 col-sm-5">
                          <legend class="lead">You can become a student of Subranka:</legend>
                      <div>
@@ -50,37 +51,36 @@
                 <hr />
             </div>
             <div class="row">
-                    <!--<div class="col-md-3 offset-md-3"></div>-->
-                    <div class="col-md-12">
-                        <asp:Repeater ID="studentNames" runat="server" OnItemCommand="studentNames_ItemCommand">   
-                        <HeaderTemplate>
-                            <table class="table table-hover table-inverse">
-                                <thead>
-                                    <tr>
-                                        <th class="h2">First Name</th>
-                                        <th class="h2">Last Name</th>
-                                    </tr>
-                                </thead>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <tbody>
+                <div class="col-md-12">
+                    <asp:Repeater ID="studentNames" runat="server" OnItemCommand="studentNames_ItemCommand">   
+                    <HeaderTemplate>
+                        <table class="table table-hover table-inverse">
+                            <thead>
                                 <tr>
-                                    <td class="h4"><%# Eval("FirstMidName") %></td>
-                                    <td class="h4"><%# Eval("LastName") %></td>
-                                    <td><asp:Label ID="studentId" Visible="false" runat="server" Text='<%# Eval("StudentID") %>' /></td>
-                                    <td><asp:ImageButton ID="infoButton" runat="server"
-                                                     AlternateText="Info icon"
-                                                     ImageUrl="~/Assets/Icons/i_icon.png" />
-                                    </td>
+                                    <th class="h2">First Name</th>
+                                    <th class="h2">Last Name</th>
                                 </tr>
-                            </tbody>
-                        </ItemTemplate> 
-                        <FooterTemplate>
-                            </table>
-                        </FooterTemplate>                                                 
-                    </asp:Repeater>
-                    </div>
-                    <div class="col-md-3 offset-md-3"></div>
+                            </thead>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <tbody>
+                            <tr id="aRow">
+                                <td class="h4"><%# Eval("FirstMidName") %></td>
+                                <td class="h4"><%# Eval("LastName") %></td>
+                                <td><asp:Label ID="studentId" Visible="false" runat="server" Text='<%# Eval("StudentID") %>' /></td>
+                                <td><asp:ImageButton ID="infoButton" runat="server"
+                                                    AlternateText="Info icon"
+                                                    ImageUrl="~/Assets/Icons/i_icon.png" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ItemTemplate> 
+                    <FooterTemplate>
+                        </table>
+                    </FooterTemplate>                                                 
+                </asp:Repeater>
+                </div>
+                <div class="col-md-3 offset-md-3"></div>
             </div>
     </div>
 </asp:Content>

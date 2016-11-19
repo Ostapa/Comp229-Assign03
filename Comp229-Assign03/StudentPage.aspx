@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="StudentPage.aspx.cs" Inherits="Comp229_Assign03.StudentPage" %>
 
+<%-- Assignemnt 3 - Comp229-007
+     Author: Ostap Hamarnyk --%>
+
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server" >
    <div class="container">
         <asp:Panel ID="requestPanel" runat="server">

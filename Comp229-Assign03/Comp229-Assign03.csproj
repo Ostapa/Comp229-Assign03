@@ -154,7 +154,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Icons\add_icon.png" />
+    <Content Include="Assets\Icons\plus_icon.png" />
     <Content Include="Assets\Icons\delete_icon.png" />
     <Content Include="Assets\Icons\edit_icon.png" />
     <Content Include="Assets\Icons\i_icon.png" />
